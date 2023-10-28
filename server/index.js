@@ -187,6 +187,86 @@ app.get("/products/search", async (req, res) => {
   });
 });
 
+app.post("/order", async (req, res) => {
+  const { user, product, address, quantity, status, shippingcharge } = req.body;
+
+  try {
+    const getOrder = new Order({
+      user,
+      product,
+      address,
+      quantity,
+      status,
+      shippingcharge,
+    });
+
+    const savedOrder = await getOrder.save();
+
+    res.json({
+      success: true,
+      message: "Order saved successfully",
+      data: savedOrder,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+app.get("/orders", async (req, res) => {
+  const orders = await Order.find().populate("user product");
+  orders.forEach((order) => {
+    order.user.password = undefined;
+  });
+
+  res.json({ success: true, message: "all orders found", data: orders });
+});
+
+app.get("/orders/:id", async (req, res) => {
+  const { id } = req.params;
+  const userOrder = await Order.findById(id).populate("user product");
+  userOrder.user.password = undefined;
+  userOrder.user.gender = undefined;
+  userOrder.user.address = undefined;
+
+  res.json({
+    success: true,
+    message: `Order successfully found `,
+    data: userOrder,
+  });
+});
+
+app.get("/order/user/:id", async (req, res) => {
+  const { id } = req.params;
+  const userOrder = await Order.findOne({ user: id }).populate("user product");
+  userOrder.user.password = undefined;
+  userOrder.user.gender = undefined;
+  userOrder.user.address = undefined;
+
+  res.json({
+    success: true,
+    message: `Order successfully found`,
+    data: userOrder,
+  });
+});
+
+app.patch("/order/:id", async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  const updateOrder = await Order.updateOne({
+    id: id,
+    $set: { status: status },
+  });
+
+  res.json({
+    success: true,
+    message: "Order was successfully updated",
+    data: updateOrder,
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`server is listening on port ${PORT}`);
