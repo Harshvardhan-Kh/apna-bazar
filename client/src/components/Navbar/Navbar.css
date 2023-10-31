@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: chartreuse;
+    background-color: #3eb479;
     padding: 15px;
     font-size: 18px;
 }
@@ -10,10 +10,47 @@
 .navbar-head {
     font-size: 25px !important;
     text-decoration: none;
+    color: #000;
 }
 
 .menu-links {
     margin: 0 20px;
     text-decoration: none;
     color: #000;
+    padding: 7px;
+    &:hover{
+        background-color: #000;
+        color: white;
+        border-radius: 7px;
+    }
+}
+.logout-btn {
+    text-decoration: none;
+    color: #000;
+    padding: 7px;
+    &:hover{
+        background-color: #000;
+        color: white;
+        border-radius: 7px;
+    }
+}
+
+.user-container {
+    animation: flash infinite 7000ms  linear;
+    display: flex;
+    gap: 5px;
+}
+
+@keyframes flash {
+    0% {
+        color: black;
+    }
+    25% {
+        color: white;
+    }
+    50% {
+        color: white;
+    }
+  
+    
 }

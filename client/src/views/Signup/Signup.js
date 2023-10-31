@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./Signup.css";
 import Navbar from "../../components/Navbar/Navbar";
 
@@ -37,11 +38,10 @@ const Signup = () => {
       gender,
     });
 
-   if (response?.data?.sucsess) {
-     alert(response?.data?.message);
-     window.location.href = "/log-in";
-    }
-    else{
+    if (response?.data?.sucsess) {
+      alert(response?.data?.message);
+      window.location.href = "/log-in";
+    } else {
       return alert(response?.data?.message);
     }
   };
@@ -55,6 +55,7 @@ const Signup = () => {
           <div className="input-group">
             <label htmlFor="name">Name</label>
             <input
+              className="input-targets"
               type="text"
               id="name"
               value={name}
@@ -67,6 +68,7 @@ const Signup = () => {
           <div className="input-group">
             <label htmlFor="mobile">Mobile</label>
             <input
+              className="input-targets"
               type="text"
               id="mobile"
               value={mobile}
@@ -79,6 +81,7 @@ const Signup = () => {
           <div className="input-group">
             <label htmlFor="email">Email</label>
             <input
+              className="input-targets"
               type="email"
               id="email"
               value={email}
@@ -91,6 +94,7 @@ const Signup = () => {
           <div className="input-group">
             <label htmlFor="password">Password</label>
             <input
+              className="input-targets"
               type="password"
               id="password"
               value={password}
@@ -103,6 +107,7 @@ const Signup = () => {
           <div className="input-group">
             <label htmlFor="address">Address</label>
             <input
+              className="input-targets"
               type="text"
               id="address"
               value={address}
@@ -113,6 +118,7 @@ const Signup = () => {
           </div>
           <div>
             <input
+              className="input-targets"
               type="radio"
               id="male"
               name="gender"
@@ -124,6 +130,7 @@ const Signup = () => {
             <label htmlFor="male">Male</label>
 
             <input
+              className="input-targets"
               type="radio"
               id="female"
               name="gender"
@@ -134,10 +141,14 @@ const Signup = () => {
             />
             <label htmlFor="female">Female</label>
           </div>
-
-          <button type="button" class="btn btn-signup" onClick={signUp}>
-            Sign Up
-          </button>
+          <div>
+            <button type="button" class="btn btn-signup" onClick={signUp}>
+              Sign Up
+            </button>
+            <Link to={"/log-in"} className="form-links">
+              already have an account?
+            </Link>
+          </div>
         </form>
       </div>
     </>

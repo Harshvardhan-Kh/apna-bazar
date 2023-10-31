@@ -37,11 +37,16 @@ const Navbar = () => {
           ) : null}
         </div>
 
-        <div>
-          hello
-          {storedUser ? storedUser.name : <span>guest!</span>}
-          {storedUser ? <a onClick={logoutUser} href="/log-in">Logout</a> : null}
-        </div>
+        <div className="user-container">
+          <span>hello</span>
+          {storedUser ? storedUser.name + ("!") : <span>guest!</span>}
+
+          </div>
+          {storedUser ? (
+            <a className="btn logout-btn" onClick={logoutUser} href="/log-in">
+              Logout
+            </a>
+          ) : null}
       </div>
     </>
   );

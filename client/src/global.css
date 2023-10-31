@@ -13,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgba(255, 255, 255, 0);
+  font-weight: bold;
 }
 
 code {
@@ -25,9 +26,23 @@ code {
 }
 
 .form-handle {
-  background-color: aqua;
+  background-color: #3eb479;;
   margin: 20px auto;
   height: 450px;
   width: 300px;
   padding: 20px;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  
+}
+.input-targets {
+  height: 30px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+}
+.form-links {
+  text-align: right;
 }
