@@ -1,0 +1,19 @@
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: chartreuse;
+    padding: 15px;
+    font-size: 18px;
+}
+
+.navbar-head {
+    font-size: 25px !important;
+    text-decoration: none;
+}
+
+.menu-links {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #000;
+}
