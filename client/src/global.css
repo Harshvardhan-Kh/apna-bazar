@@ -26,7 +26,7 @@ code {
 }
 
 .form-handle {
-  background-color: #3eb479;;
+  background-color: #3eb479;
   margin: 20px auto;
   height: 450px;
   width: 300px;
@@ -45,4 +45,9 @@ code {
 }
 .form-links {
   text-align: right;
+}
+.btn {
+  padding: 5px 8px;
+  font-size: 15px;
+  border: none;
 }

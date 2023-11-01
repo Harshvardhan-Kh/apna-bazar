@@ -10,13 +10,13 @@
 .navbar-head {
     font-size: 25px !important;
     text-decoration: none;
-    color: #000;
+    color: #fff;
 }
 
 .menu-links {
     margin: 0 20px;
     text-decoration: none;
-    color: #000;
+    color: #fff;
     padding: 7px;
     &:hover{
         background-color: #000;
@@ -26,7 +26,7 @@
 }
 .logout-btn {
     text-decoration: none;
-    color: #000;
+    color: #fff;
     padding: 7px;
     &:hover{
         background-color: #000;
