@@ -1,0 +1,25 @@
+.order-container {
+    width: 65%;
+    margin: 10px auto;
+    padding: 20px;
+    height: 500px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px -1px ;
+
+
+}
+.product-img {
+    height: 300px;
+    margin: 10px auto;
+}
+.cancel-btn {
+    cursor: pointer;
+    color: #fff;
+    background-color: #3eb479;
+    padding: 15px;
+    width: 15%;
+    font-size: 18px;
+    border-radius: 3px;
+}

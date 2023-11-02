@@ -12,7 +12,7 @@ const BuyPage = () => {
   const [shippingcharge, setShippingcharge] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [status, setStatus] = useState("pending");
-
+  const [totalprice, setTotalPrice] = useState();
   const loadProduct = async () => {
     const response = await axios.get(`/product/${id}`);
     setProduct(response?.data?.data);
@@ -33,6 +33,7 @@ const BuyPage = () => {
       address,
       shippingcharge,
       status,
+      quantity,
     });
 
     if (!response?.data?.success) {
@@ -40,7 +41,7 @@ const BuyPage = () => {
       return;
     }
     alert(response?.data?.message);
-    window.location.href='/';
+    window.location.href = "/my-orders";
   };
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const BuyPage = () => {
     loaduser();
   }, []);
 
+  const totlprice = parseInt(product?.price * quantity + shippingcharge);
   return (
     <div className="buy-product-main-container">
       <Navbar />
@@ -101,7 +103,9 @@ const BuyPage = () => {
               +
             </span>
           </p>
-          <p className="text-center txt-clr">₹ {product?.price * quantity}/-</p>
+          <p className="text-center txt-clr">
+            ₹ {product?.price * quantity + shippingcharge}/-
+          </p>
           <p className="text-center">
             <div className="shipping-container">
               <input
@@ -131,9 +135,7 @@ const BuyPage = () => {
           <p className="text-center">
             shipping charges :- <span>{shippingcharge}</span>
           </p>
-          <p className="text-center">
-            total Amount :- ₹ {product?.price * quantity + shippingcharge}/-
-          </p>
+          <p className="text-center">total Amount :- ₹ {totlprice}/-</p>
           <p className="btn place-order-btn" onClick={placeorder}>
             Place Order
           </p>
