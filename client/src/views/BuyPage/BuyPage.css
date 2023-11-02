@@ -25,9 +25,9 @@
   margin: 10px 2px 0 2px;
 }
 .buy-product-place-cnt {
-    width: 40%;
+  width: 40%;
 }
-.address-input{
+.address-input {
   outline: none;
   margin: 5px 0;
   padding: 10px;
@@ -40,4 +40,22 @@
   height: 20px;
   width: 20px;
   border: 1px solid #00000049;
+}
+.txt-clr {
+  color: rgb(62, 139, 18);
+}
+.counter-container{
+  text-align: center;
+}
+.place-order-btn {
+  padding: 5px;
+  margin: 5px auto;
+  background-color: #000;
+  color: white;
+  border: none;
+  width: 100px;
+  text-align: center;
+}
+.dilivery-input {
+
 }

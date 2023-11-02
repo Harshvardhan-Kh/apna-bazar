@@ -8,9 +8,10 @@ const BuyPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [user, setUser] = useState({}) || {};
-  const [quantity, setQuantity] = useState(1);
   const [address, setAddress] = useState("");
-  const [shippingcharge, setShippingcharge] = useState();
+  const [shippingcharge, setShippingcharge] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [status, setStatus] = useState("pending");
 
   const loadProduct = async () => {
     const response = await axios.get(`/product/${id}`);
@@ -19,6 +20,27 @@ const BuyPage = () => {
 
   const loaduser = () => {
     setUser(JSON.parse(localStorage.getItem("user")));
+  };
+
+  const placeorder = async () => {
+    const userdata = JSON.parse(localStorage.getItem("user"));
+    const user = userdata._id;
+    const product = id;
+
+    const response = await axios.post("/order", {
+      user,
+      product,
+      address,
+      shippingcharge,
+      status,
+    });
+
+    if (!response?.data?.success) {
+      alert("please enter all input fields");
+      return;
+    }
+    alert(response?.data?.message);
+    window.location.href='/';
   };
 
   useEffect(() => {
@@ -47,7 +69,7 @@ const BuyPage = () => {
           <p>Buyer's name :- {user.name}</p>
           <p>Buyer's email :- {user.email}</p>
           <p>Buyer's mobile :- {user.mobile}</p>
-          Your shipping address :-{" "}
+          Buyer's shipping address :-{" "}
           <input
             type="text"
             className="address-input"
@@ -57,23 +79,64 @@ const BuyPage = () => {
               setAddress(e.target.value);
             }}
           />
-          <p>
-            <span onClick={() => {
-                if(quantity==1){
-                    return;
+          <p className="text-center">
+            <span
+              onClick={() => {
+                if (quantity == 1) {
+                  return;
                 }
-                setQuantity(quantity-1)
-            }} className="counter-btn">
+                setQuantity(quantity - 1);
+              }}
+              className="counter-btn"
+            >
               -
             </span>
             <span>{quantity}</span>
-            <span onClick={() => {
-                setQuantity(quantity+1)
-            }} className="counter-btn">
+            <span
+              onClick={() => {
+                setQuantity(quantity + 1);
+              }}
+              className="counter-btn"
+            >
               +
             </span>
           </p>
-          <span>₹ {product.price*quantity}/-</span>
+          <p className="text-center txt-clr">₹ {product?.price * quantity}/-</p>
+          <p className="text-center">
+            <div className="shipping-container">
+              <input
+                className="delivery-input"
+                name="order"
+                type="radio"
+                value="500"
+                onClick={(e) => {
+                  setShippingcharge(parseInt(e.target.value));
+                }}
+              />
+              faster order delivery
+            </div>
+            <div className="shipping-container">
+              <input
+                className="delivery-input"
+                name="order"
+                type="radio"
+                value="0"
+                onClick={(e) => {
+                  setShippingcharge(parseInt(e.target.value));
+                }}
+              />
+              free order delivery
+            </div>
+          </p>
+          <p className="text-center">
+            shipping charges :- <span>{shippingcharge}</span>
+          </p>
+          <p className="text-center">
+            total Amount :- ₹ {product?.price * quantity + shippingcharge}/-
+          </p>
+          <p className="btn place-order-btn" onClick={placeorder}>
+            Place Order
+          </p>
         </div>
       </div>
     </div>

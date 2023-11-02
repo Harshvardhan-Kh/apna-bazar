@@ -227,9 +227,8 @@ app.get("/orders", async (req, res) => {
 app.get("/orders/:id", async (req, res) => {
   const { id } = req.params;
   const userOrder = await Order.findById(id).populate("user product");
+  
   userOrder.user.password = undefined;
-  userOrder.user.gender = undefined;
-  userOrder.user.address = undefined;
 
   res.json({
     success: true,
@@ -240,16 +239,24 @@ app.get("/orders/:id", async (req, res) => {
 
 app.get("/order/user/:id", async (req, res) => {
   const { id } = req.params;
-  const userOrder = await Order.findOne({ user: id }).populate("user product");
-  userOrder.user.password = undefined;
-  userOrder.user.gender = undefined;
-  userOrder.user.address = undefined;
+  try {
 
-  res.json({
-    success: true,
-    message: `Order successfully found`,
-    data: userOrder,
-  });
+    const userOrder = await Order.find({ user: id }).populate(
+      "user product"
+    );
+
+    userOrder.forEach((order) => {
+      order.user.password = undefined
+    })
+
+    res.json({
+      success: true,
+      message: `Order successfully found`,
+      data: userOrder,
+    });
+  } catch (err) {
+    res.json({ success: false, message: err.message });
+  }
 });
 
 app.patch("/order/:id", async (req, res) => {

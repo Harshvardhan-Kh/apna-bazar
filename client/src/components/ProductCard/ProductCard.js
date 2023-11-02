@@ -27,7 +27,7 @@ const ProductCard = ({ id, name, description, brand, price, image }) => {
           </Link>
         ) : (
           <Link to={`/log-in`} className="btn buyn-btn">
-            Login to Buy
+            Log-in to Buy
           </Link>
         )}
       </div>
