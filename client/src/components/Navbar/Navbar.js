@@ -24,12 +24,17 @@ const Navbar = () => {
         </div>
 
         <div>
-          <Link onClick={userLogein} className="menu-links" to={"/log-in"}>
-            Login
-          </Link>
-          <Link onClick={userLogein} className="menu-links" to={"/sign-up"}>
-            Sign-Up
-          </Link>
+          {storedUser ? null : (
+            <Link onClick={userLogein} className="menu-links" to={"/log-in"}>
+              Login
+            </Link>
+          )}
+
+          {storedUser ? null : (
+            <Link onClick={userLogein} className="menu-links" to={"/sign-up"}>
+              Sign-Up
+            </Link>
+          )}
           {storedUser ? (
             <Link className="menu-links" to={"/my-orders"}>
               My Orders
@@ -39,14 +44,13 @@ const Navbar = () => {
 
         <div className="user-container">
           <span>hello</span>
-          {storedUser ? storedUser.name + ("!") : <span>guest!</span>}
-
-          </div>
-          {storedUser ? (
-            <a className="btn logout-btn" onClick={logoutUser} href="/log-in">
-              Logout
-            </a>
-          ) : null}
+          {storedUser ? storedUser.name + "!" : <span>guest!</span>}
+        </div>
+        {storedUser ? (
+          <a className="btn logout-btn" onClick={logoutUser} href="/log-in">
+            Logout
+          </a>
+        ) : null}
       </div>
     </>
   );

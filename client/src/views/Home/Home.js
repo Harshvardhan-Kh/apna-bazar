@@ -27,7 +27,7 @@ const Home = () => {
       <div className="products-container">
         {
         products.map((products, index) => {
-          const { name, description, brand, price, image } = products;
+          const { _id, name, description, brand, price, image } = products;
           return (
             <ProductCard
               key={index}
@@ -36,6 +36,7 @@ const Home = () => {
               brand={brand}
               price={price}
               image={image}
+              id={_id}
             />
           );
         })}
