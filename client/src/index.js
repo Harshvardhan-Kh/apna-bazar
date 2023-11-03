@@ -7,6 +7,7 @@ import Signup from "./views/Signup/Signup";
 import Login from "./views/Login/Login";
 import Orders from "./views/Orders/Orders";
 import BuyPage from "./views/BuyPage/BuyPage";
+import CancelOrder from "./views/CancelOrder/CancelOrder";
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <BuyPage />,
+  },
+  {
+    path: "/cancel/order/:id",
+    element: <CancelOrder />,
   }
 ]);
 

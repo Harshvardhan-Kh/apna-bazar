@@ -4,6 +4,7 @@ import mongoose, { set } from "mongoose";
 import User from "./models/User.js";
 import Product from "./models/Product.js";
 import Order from "./models/Order.js";
+import Cancelorder from "./models/Cancelorder.js";
 
 dotenv.config();
 
@@ -273,6 +274,24 @@ app.patch("/order/:id", async (req, res) => {
     message: "Order was successfully updated",
     data: updateOrder,
   });
+});
+
+app.delete("/user/order/:id",async (req, res) => {
+  const {id} = req.params;
+  const {email, password} = req.body;
+  const loaduserdata = await User.find({email, password,})
+  if(!loaduserdata){
+    return res.json({
+      success:false,
+      message: "Invalid credentials",
+    })
+  }
+  const deletorder = await Order.deleteOne(id)
+  res.json({
+    success:true,
+    message: " Order canceled successfully",
+    data: deletorder,
+  })
 });
 
 app.listen(PORT, () => {

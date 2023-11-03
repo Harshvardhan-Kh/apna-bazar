@@ -22,23 +22,25 @@ const Orders = () => {
       <div className="reverse-order">
         {userorders.map((order, index) => {
           const {
+            _id,
             product,
             user,
             status,
             address,
             quantity,
-            shippingcharges,
+            shippingcharge,
           } = order;
           return (
             <>
               <OrderCard
                 key={index}
+                _id={_id}
                 address={address}
                 product={product}
                 user={user}
                 status={status}
                 quantity={quantity}
-                shippingcharges={shippingcharges}
+                shippingcharge={shippingcharge}
               />
             </>
           );

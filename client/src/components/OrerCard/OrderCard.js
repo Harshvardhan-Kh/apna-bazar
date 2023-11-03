@@ -2,14 +2,16 @@ import React from "react";
 import "./OrderCard.css";
 
 const OrderCard = ({
+  _id,
   product,
   user,
   status,
   address,
   quantity,
-  shippingcharges,
+  shippingcharge,
 }) => {
   const calculateprice = product.price * quantity;
+
   return (
     <div>
       <div className="order-container">
@@ -23,7 +25,8 @@ const OrderCard = ({
         </p>
         <p>Order Status :- {status}</p>
         <p>Total payable amount :- {calculateprice}</p>
-        <p className="btn cancel-btn">Cancel Order</p>
+        <p>shipping charges :- {shippingcharge}</p>
+        <p onClick={()=>{window.location.href=`/cancel/order/${_id}`}} className="btn cancel-btn">Cancel Order</p>
       </div>
     </div>
   );
