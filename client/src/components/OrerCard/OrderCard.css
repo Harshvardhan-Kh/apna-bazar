@@ -7,8 +7,7 @@
     text-align: center;
     border-radius: 8px;
     box-shadow: 0 0 10px -1px ;
-
-
+    position: relative;
 }
 .product-img {
     height: 300px;
@@ -22,4 +21,24 @@
     width: 15%;
     font-size: 18px;
     border-radius: 3px;
+}
+.status-box {
+    padding: 6px 10px;
+    border-radius: 5px;
+    color: #fff;  
+    position: absolute;
+    top: 2px;
+    right: 2px;  
+}
+.status-pending {
+    background-color: rgba(57, 248, 200, 0.875);
+}
+.status-shipped {
+    background-color: orange;
+}
+.status-delivered {
+    background-color: #3eb479;
+}
+.status-rejected {
+    background-color: rgb(255, 0, 0);
 }

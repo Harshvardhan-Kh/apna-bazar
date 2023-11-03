@@ -264,6 +264,28 @@ app.patch("/order/:id", async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
+  const ORDER_PRIORITY_MAP = {
+    pending: 0,
+    shipped: 1,
+    delivered: 2,
+    returned: 3,
+    cancelled : 4,
+    rejected: 5
+  }
+  const loadorder = await Order.findById(id)
+  const OrderStatus = loadorder.status
+
+  
+  const currentOrderStatus = ORDER_PRIORITY_MAP[OrderStatus]
+  const newOrderStatus = ORDER_PRIORITY_MAP[status]
+
+  if(currentOrderStatus > newOrderStatus){
+    return res.json({
+      success: false,
+      message: `${currentOrderStatus}cannot assign once order is ${newOrderStatus}`
+    })
+  }
+
   const updateOrder = await Order.updateOne({
     id: id,
     $set: { status: status },
@@ -271,10 +293,11 @@ app.patch("/order/:id", async (req, res) => {
 
   res.json({
     success: true,
-    message: "Order was successfully updated",
+    message: `Order was successfully updated`,
     data: updateOrder,
   });
 });
+
 
 app.delete("/user/order/:id",async (req, res) => {
   const {id} = req.params;

@@ -12,6 +12,16 @@ const OrderCard = ({
 }) => {
   const calculateprice = product.price * quantity;
 
+  const ORDER_STUTAS_MAP = {
+    "pending": "status-pending",
+    "shipped": "status-shipped",
+    "delivered": "status-delivered",
+    "returned": "status-returned",
+    "cancelled": "status-cancelled",
+    "rejected": "status-rejected",
+  }
+  const showStatus = ORDER_STUTAS_MAP[status];
+
   return (
     <div>
       <div className="order-container">
@@ -23,7 +33,7 @@ const OrderCard = ({
         <p>
           {user.name}'s shipping address :- {address}
         </p>
-        <p>Order Status :- {status}</p>
+        <span className={`status-box ${showStatus}`}> {status}</span>
         <p>Total payable amount :- {calculateprice}</p>
         <p>shipping charges :- {shippingcharge}</p>
         <p onClick={()=>{window.location.href=`/cancel/order/${_id}`}} className="btn cancel-btn">Cancel Order</p>
