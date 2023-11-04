@@ -228,7 +228,7 @@ app.get("/orders", async (req, res) => {
 app.get("/orders/:id", async (req, res) => {
   const { id } = req.params;
   const userOrder = await Order.findById(id).populate("user product");
-  
+
   userOrder.user.password = undefined;
 
   res.json({
@@ -241,14 +241,11 @@ app.get("/orders/:id", async (req, res) => {
 app.get("/order/user/:id", async (req, res) => {
   const { id } = req.params;
   try {
-
-    const userOrder = await Order.find({ user: id }).populate(
-      "user product"
-    );
+    const userOrder = await Order.find({ user: id }).populate("user product");
 
     userOrder.forEach((order) => {
-      order.user.password = undefined
-    })
+      order.user.password = undefined;
+    });
 
     res.json({
       success: true,
@@ -269,27 +266,23 @@ app.patch("/order/:id", async (req, res) => {
     shipped: 1,
     delivered: 2,
     returned: 3,
-    cancelled : 4,
-    rejected: 5
-  }
-  const loadorder = await Order.findById(id)
-  const OrderStatus = loadorder.status
+    cancelled: 4,
+    rejected: 5,
+  };
+  const loadorder = await Order.findById(id);
+  const OrderStatus = loadorder.status;
 
-  
-  const currentOrderStatus = ORDER_PRIORITY_MAP[OrderStatus]
-  const newOrderStatus = ORDER_PRIORITY_MAP[status]
+  const currentOrderStatus = ORDER_PRIORITY_MAP[OrderStatus];
+  const newOrderStatus = ORDER_PRIORITY_MAP[status];
 
-  if(currentOrderStatus > newOrderStatus){
+  if (currentOrderStatus > newOrderStatus) {
     return res.json({
       success: false,
-      message: `${currentOrderStatus}cannot assign once order is ${newOrderStatus}`
-    })
+      message: `${currentOrderStatus}cannot assign once order is ${newOrderStatus}`,
+    });
   }
 
-  const updateOrder = await Order.updateOne({
-    id: id,
-    $set: { status: status },
-  });
+  const updateOrder = await Order.updateOne({_id: id},{$set: { status: status },});
 
   res.json({
     success: true,
@@ -298,23 +291,22 @@ app.patch("/order/:id", async (req, res) => {
   });
 });
 
-
-app.delete("/user/order/:id",async (req, res) => {
-  const {id} = req.params;
-  const {email, password} = req.body;
-  const loaduserdata = await User.find({email, password,})
-  if(!loaduserdata){
+app.delete("/user/order/:id", async (req, res) => {
+  const { id } = req.params;
+  const { email, password } = req.body;
+  const loaduserdata = await User.find({ email, password });
+  if (!loaduserdata) {
     return res.json({
-      success:false,
+      success: false,
       message: "Invalid credentials",
-    })
+    });
   }
-  const deletorder = await Order.deleteOne(id)
+  const deletorder = await Order.deleteOne(id);
   res.json({
-    success:true,
+    success: true,
     message: " Order canceled successfully",
     data: deletorder,
-  })
+  });
 });
 
 app.listen(PORT, () => {

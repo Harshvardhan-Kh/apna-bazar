@@ -5,3 +5,13 @@
    flex-wrap: wrap;
    margin: 20px 0; 
 }
+.input-search {
+   display: block;
+   width: 50%;
+   border: none;
+   outline: none;
+   border-bottom: 1px solid #35343448;
+   padding: 20px;
+   margin: 20px auto;
+   font-size: 28px;
+}
