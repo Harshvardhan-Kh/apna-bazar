@@ -5,12 +5,15 @@ import User from "./models/User.js";
 import Product from "./models/Product.js";
 import Order from "./models/Order.js";
 import Cancelorder from "./models/Cancelorder.js";
+import path from 'path';
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+
+const __dirname = path.resolve();
 
 const PORT = process.env.PORT || 5000;
 
@@ -308,6 +311,14 @@ app.delete("/user/order/:id", async (req, res) => {
     data: deletorder,
   });
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'))
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`server is listening on port ${PORT}`);
