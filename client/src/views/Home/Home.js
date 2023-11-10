@@ -9,7 +9,25 @@ const Home = () => {
   const [search, setSearch] = useState();
 
   try {
+    const loadProducts = async () => {
+      const response = await axios.get("/products");
+      setProducts(response?.data?.data);
+    };
+    useEffect(() => {
+      loadProducts();
+    }, []);
+  } catch (e) {
+    alert("Error loading products");
+    console.log(e);
+  }
+
+  try {
     const loadSearchProducts = async () => {
+      if (search === "") {
+        const response = await axios.get("/products");
+        setProducts(response?.data?.data);
+        return;
+      }
       const response = await axios.get(`/products/search?q=${search}`);
       setProducts(response?.data?.data);
     };
@@ -19,25 +37,11 @@ const Home = () => {
   } catch (e) {
     console.log(e.message);
   }
-
-  try {
-    const loadProducts = async () => {
-      const response = await axios.get("/products");
-      setProducts(response?.data?.data);
-    };
-
-    useEffect(() => {
-      loadProducts();
-    }, []);
-  } catch (e) {
-    alert("Error loading products");
-    console.log(e);
-  }
   return (
     <>
       <Navbar />
       <input
-      className="input-search"
+        className="input-search"
         type="text"
         placeholder="Search products"
         value={search}
