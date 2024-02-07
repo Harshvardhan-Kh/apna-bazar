@@ -1,5 +1,5 @@
-import express, { response } from "express";
-import dotenv, { populate } from "dotenv";
+import express from "express";
+import dotenv from "dotenv";
 import mongoose, { set } from "mongoose";
 import User from "./models/User.js";
 import Product from "./models/Product.js";
